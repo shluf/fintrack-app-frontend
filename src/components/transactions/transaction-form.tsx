@@ -65,7 +65,7 @@ export function TransactionForm({ onSuccess, initialData }: TransactionFormProps
       toast({
         variant: 'destructive',
         title: 'Error',
-        description: 'Failed to save transaction.',
+        description: `Failed to save transaction. ${error}`,
       });
     }
   };

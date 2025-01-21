@@ -109,8 +109,8 @@ export default function LandingPage() {
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">What Our Users Say</h2>
             <div className="max-w-3xl mx-auto">
               <blockquote className="border-l-4 pl-4 italic">
-                "FinTrack has completely transformed how I manage my finances. I now have a clear understanding of my
-                spending patterns and feel more in control of my financial future."
+              &quot;FinTrack has completely transformed how I manage my finances. I now have a clear understanding of my
+                spending patterns and feel more in control of my financial future.&quot;
               </blockquote>
               <p className="mt-4 font-semibold">- Anthony, Young Professional</p>
             </div>

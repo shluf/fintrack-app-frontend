@@ -17,7 +17,7 @@ import { budgetsApi, type Budget } from '@/lib/api';
 
 export default function BudgetPage() {
   const [budget, setBudget] = useState<Budget | null>(null);
-  const [totalExpenses, setTotalExpenses] = useState(0);
+  const [totalExpenses] = useState(0);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [newLimit, setNewLimit] = useState('');
   const { toast } = useToast();
@@ -57,7 +57,7 @@ export default function BudgetPage() {
       });
       setIsDialogOpen(false);
 
-      
+
       const response = await budgetsApi.getAll();
       if (response.data.budgets.length > 0) {
         setBudget(response.data.budgets[0]);
@@ -66,7 +66,7 @@ export default function BudgetPage() {
       toast({
         variant: 'destructive',
         title: 'Error',
-        description: 'Failed to update budget.',
+        description: `Failed to update budget. ${error}`,
       });
     }
   };
