@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000";
-
 const api = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: "/api",
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   }
 });
+
+// DEBUG
 
 // api.interceptors.response.use(
 //   (response) => {
@@ -89,6 +89,7 @@ export interface Transaction {
     type: 'income' | 'expense';
     date: string;
     description: string;
+    category?: string;
   }
   
 export interface Budget {

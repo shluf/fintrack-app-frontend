@@ -24,7 +24,9 @@ export default function LoginPage() {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      await authApi.login(data.email, data.password);
+      const response = await authApi.login(data.email, data.password);
+      const token = response.data.token;
+      document.cookie = `token=${token}; Path=/; Secure; Max-Age=${24 * 60 * 60 * 1000}; SameSite=Strict;`; 
       router.push('/dashboard');
     } catch (error) {
       toast({

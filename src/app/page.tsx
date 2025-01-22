@@ -47,7 +47,10 @@ export default function LandingPage() {
                 </p>
               </div>
               <div className="space-x-4">
-                <Button>Get Started</Button>
+                <Button asChild>
+                  <Link href="/dashboard">Get Started</Link>
+                </Button>
+
                 <Button variant="outline">Learn More</Button>
               </div>
             </div>
@@ -125,9 +128,11 @@ export default function LandingPage() {
                   Start your journey towards financial stability today with FinTrack.
                 </p>
               </div>
-              <Button className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
-                Get Started Now
-                <ChevronRight className="ml-2 h-4 w-4" />
+              <Button asChild className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
+                <Link href="/dashboard">
+                  Get Started
+                  <ChevronRight className="ml-2 h-4 w-4" />
+                </Link>
               </Button>
             </div>
           </div>
