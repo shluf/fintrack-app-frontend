@@ -186,8 +186,8 @@ export default function LandingPage() {
                 <BadgeCheck className="text-emerald-500 ml-auto" />
               </div>
               <p className="text-gray-300">
-                "FinTrack completely transformed how I manage my finances. The
-                insights helped me save 30% more monthly!"
+              &quot;FinTrack completely transformed how I manage my finances. The
+                insights helped me save 30% more monthly!&quot;
               </p>
             </div>
 
@@ -207,8 +207,8 @@ export default function LandingPage() {
                 <BadgeCheck className="text-emerald-500 ml-auto" />
               </div>
               <p className="text-gray-300">
-                "Finally a financial app that's both powerful and easy to use.
-                The auto-sync feature is a game-changer!"
+              &quot;Finally a financial app that&pos;s both powerful and easy to use.
+                The auto-sync feature is a game-changer!&quot;
               </p>
             </div>
           </div>

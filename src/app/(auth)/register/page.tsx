@@ -45,6 +45,7 @@ export default function RegisterPage() {
       });
       router.push("/login");
     } catch (error) {
+      console.error(error)
       toast({
         variant: "destructive",
         title: "Error",

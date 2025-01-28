@@ -34,6 +34,7 @@ export default function LoginPage() {
       authApi.setAuthToken(token);
       router.push("/dashboard");
     } catch (error) {
+      console.error(error)
       toast({
         variant: "destructive",
         title: "Error",
@@ -106,7 +107,7 @@ export default function LoginPage() {
         </form>
 
         <p className="mt-6 text-center text-gray-400">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link
             href="/register"
             className="text-emerald-500 hover:text-emerald-400"
