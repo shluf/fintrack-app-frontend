@@ -26,7 +26,7 @@ export default function LoginPage() {
     try {
       const response = await authApi.login(data.email, data.password);
       const token = response.data.token;
-      document.cookie = `token=${token}; Path=/; Secure; Max-Age=${24 * 60 * 60 * 1000}; SameSite=Strict;`; 
+      authApi.setAuthToken(token);
       router.push('/dashboard');
     } catch (error) {
       toast({

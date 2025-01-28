@@ -29,6 +29,9 @@ export const authApi = {
   },
   register: async (name: string, email: string, password: string) => {
     return api.post('/register', { name, email, password });
+  },
+  setAuthToken: (token: string) => {
+    document.cookie = `token=${token}; Path=/; Secure; Max-Age=${24 * 60 * 60}; SameSite=Strict;`;
   }
 };
 

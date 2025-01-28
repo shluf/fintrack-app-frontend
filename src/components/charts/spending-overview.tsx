@@ -1,26 +1,94 @@
-'use client';
+"use client"
 
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+import { Line, LineChart, XAxis, YAxis, ResponsiveContainer } from "recharts"
+import { cn, formatRupiah } from "@/lib/utils"
 
 interface SpendingOverviewProps {
-  data: Array<{
-    date: string;
-    amount: number;
-  }>;
+  data: { date: string; income: number; expense: number }[]
+  className?: string
+  filterType: 'all' | 'income' | 'expense'
 }
 
-export function SpendingOverview({ data }: SpendingOverviewProps) {
+export function SpendingOverview({ data, className, filterType }: SpendingOverviewProps) {
+  const chartConfig = {
+    ...((filterType === 'all' || filterType === 'income') ? { 
+      income: {
+        label: "Income",
+        color: "hsl(var(--chart-1))",
+      } 
+    } : {}),
+    ...((filterType === 'all' || filterType === 'expense') ? { 
+      expense: {
+        label: "Expense",
+        color: "hsl(var(--chart-2))",
+      } 
+    } : {}),
+  };
+
   return (
-    <div className="h-[400px] w-full">
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis />
-          <Tooltip />
-          <Line type="monotone" dataKey="amount" stroke="#8884d8" />
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
+    <Card className={cn("shadow-lg overflow-hidden", className)}>
+      <CardHeader>
+        <CardTitle className="text-xl font-semibold text-gray-800">Spending Overview</CardTitle>
+      </CardHeader>
+      <CardContent className="p-4 ">
+        <ChartContainer config={chartConfig}>
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={data} margin={{ top: 20, right: 20, left: 10, bottom: 0 }}>
+            <XAxis
+                dataKey="date"
+                stroke="#6b7280"
+                fontSize={12}
+                tickLine={false}
+                axisLine={false}
+                padding={{ left: 20, right: 20 }}
+              />
+              <YAxis
+                stroke="#6b7280"
+                fontSize={12}
+                tickLine={false}
+                axisLine={false}
+                tickFormatter={(value) => `${formatRupiah(value, {abbreviate: true})}`}
+                width={60}
+              />
+              {(filterType === 'all' || filterType === 'income') && (
+                <Line
+                  type="monotone"
+                  dataKey="income"
+                  stroke="var(--color-income)"
+                  strokeWidth={2}
+                  dot={false}
+                  activeDot={{
+                    r: 6,
+                    fill: "var(--color-income)",
+                    strokeWidth: 2,
+                    stroke: "white",
+                  }}
+                />
+              )}
+              {(filterType === 'all' || filterType === 'expense') && (
+                <Line
+                  type="monotone"
+                  dataKey="expense"
+                  stroke="var(--color-expense)"
+                  strokeWidth={2}
+                  dot={false}
+                  activeDot={{
+                    r: 6,
+                    fill: "var(--color-expense)",
+                    strokeWidth: 2,
+                    stroke: "white",
+                  }}
+                />
+              )}
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <ChartLegend content={<ChartLegendContent />} />
+            </LineChart>
+          </ResponsiveContainer>
+        </ChartContainer>
+      </CardContent>
+    </Card>
   );
 }
+

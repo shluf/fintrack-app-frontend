@@ -1,41 +1,28 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { budgetsApi, type Budget } from '@/lib/api';
+import { budgetsApi } from '@/lib/api';
+import { useBudgetData } from '@/hooks/use-budget-data';
+import { BudgetAlerts } from '@/components/budget/budget-alert';
+import { StatCard } from '@/components/budget/stat-card';
+import { BudgetProgress } from '@/components/budget/budget-progress';
 
 export default function BudgetPage() {
-  const [budget, setBudget] = useState<Budget | null>(null);
-  const [totalExpenses] = useState(0);
+  const { 
+    budget, 
+    totalExpenses, 
+    monthlyLimit, 
+    percentageUsed, 
+    loading, 
+    refreshData 
+  } = useBudgetData();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [newLimit, setNewLimit] = useState('');
   const { toast } = useToast();
-
-  useEffect(() => {
-    const fetchBudget = async () => {
-      try {
-        const response = await budgetsApi.getAll();
-        if (response.data.budgets.length > 0) {
-          setBudget(response.data.budgets[0]);
-        }
-      } catch (error) {
-        console.error('Failed to fetch budget:', error);
-      }
-    };
-
-    fetchBudget();
-  }, []);
 
   const handleUpdateBudget = async () => {
     try {
@@ -47,21 +34,12 @@ export default function BudgetPage() {
       if (budget?._id) {
         await budgetsApi.update(budget._id, { monthly_limit: limit });
       } else {
-        const response = await budgetsApi.create({ monthly_limit: limit });
-        setBudget(response.data.budget);
+        await budgetsApi.create({ monthly_limit: limit });
       }
 
-      toast({
-        title: 'Success',
-        description: 'Budget updated successfully!',
-      });
+      toast({ title: 'Success', description: 'Budget updated successfully!' });
       setIsDialogOpen(false);
-
-
-      const response = await budgetsApi.getAll();
-      if (response.data.budgets.length > 0) {
-        setBudget(response.data.budgets[0]);
-      }
+      refreshData(); 
     } catch (error) {
       toast({
         variant: 'destructive',
@@ -71,9 +49,7 @@ export default function BudgetPage() {
     }
   };
 
-  const progress = budget
-    ? Math.min((totalExpenses / budget.monthly_limit) * 100, 100)
-    : 0;
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className="space-y-6">
@@ -81,9 +57,7 @@ export default function BudgetPage() {
         <h1 className="text-2xl font-bold">Budget Tracker</h1>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button>
-              {budget ? 'Update Budget' : 'Set Budget'}
-            </Button>
+            <Button>{budget ? 'Update Budget' : 'Set Budget'}</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
@@ -102,33 +76,32 @@ export default function BudgetPage() {
         </Dialog>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Monthly Budget Overview</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {budget ? (
-            <>
-              <div className="flex justify-between text-sm">
-                <span>Spent: ${totalExpenses.toFixed(2)}</span>
-                <span>Budget: ${budget.monthly_limit.toFixed(2)}</span>
-              </div>
-              <Progress value={progress} />
-              <div className="text-sm text-muted-foreground">
-                {progress >= 100 ? (
-                  <p className="text-red-500">Budget exceeded!</p>
-                ) : (
-                  <p>
-                    ${(budget.monthly_limit - totalExpenses).toFixed(2)} remaining
-                  </p>
-                )}
-              </div>
-            </>
-          ) : (
-            <p>No budget set. Click the button above to set a monthly budget.</p>
-          )}
-        </CardContent>
-      </Card>
+      <BudgetAlerts
+        totalExpenses={totalExpenses}
+        monthlyLimit={monthlyLimit}
+        percentageUsed={percentageUsed}
+      />
+
+      <div className="grid grid-cols-3 gap-4">
+        <StatCard
+          title="Total Budget"
+          value={budget ? `$${monthlyLimit.toFixed(2)}` : 'Not set'}
+        />
+        <StatCard
+          title="Total Used"
+          value={`$${totalExpenses.toFixed(2)}`}
+        />
+        <StatCard
+          title="Remaining"
+          value={budget ? `$${(monthlyLimit - totalExpenses).toFixed(2)}` : 'N/A'}
+        />
+      </div>
+
+      <BudgetProgress
+        totalExpenses={totalExpenses}
+        monthlyLimit={monthlyLimit}
+        percentageUsed={percentageUsed}
+      />
     </div>
   );
 }

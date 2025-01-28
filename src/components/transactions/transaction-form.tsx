@@ -25,7 +25,7 @@ import { useToast } from '@/hooks/use-toast';
 import { transactionsApi } from '@/lib/api';
 
 const transactionSchema = z.object({
-  amount: z.string().transform(Number),
+  amount: z.coerce.number(),
   type: z.enum(['income', 'expense']),
   date: z.string(),
   description: z.string().min(1),
