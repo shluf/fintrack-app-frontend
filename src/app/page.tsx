@@ -1,155 +1,308 @@
+"use client"
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import { ArrowRight, BadgeCheck, BarChart, Clock, Shield } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
-import { Button, buttonVariants } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ChevronRight, DollarSign, PieChart, Target, TrendingUp } from "lucide-react"
 
 export default function LandingPage() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <header className="px-4 lg:px-6 h-14 flex items-center">
-        <Link className="flex items-center justify-center" href="#">
-          <DollarSign className="h-6 w-6 mr-2" />
-          <span className="font-bold">FinTrack</span>
-        </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
-          <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
-            Features
-          </Link>
-          <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
-            Pricing
-          </Link>
-          <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
-            About
-          </Link>
-          <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
-            Contact
-          </Link>
-          <div className="flex gap-2">
-            <Link href="/login" className={buttonVariants({ variant: "default" })}>
-              Login
-            </Link>
-            <Link href="/register" className={buttonVariants({ variant: "outline" })}>
-              Register
-            </Link>
+    <div className="bg-gradient-to-b from-[#0F172A] to-[#1E293B] text-white min-h-screen">
+      <nav className="fixed w-full bg-[#0F172A]/90 backdrop-blur-md z-50">
+        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+          <div className="flex items-center space-x-2">
+            <a href="https://www.freepnglogos.com/images/f-letter-logo-png-1555.html">
+              <Image
+                alt="logo"
+                width={52}
+                height={52}
+                src={"/assets/icon-192x192.png"}
+                className="[filter:invert(61%)_sepia(55%)_saturate(4724%)_hue-rotate(125deg)_brightness(97%)_contrast(87%);]"
+              />
+            </a>
+            <span className="text-2xl font-bold">FinTrack</span>
           </div>
-        </nav>
-      </header>
-      <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 justify-center flex">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                  Take Control of Your Finances
-                </h1>
-                <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-                  FinTrack helps you track expenses, understand spending patterns, and achieve your financial goals.
-                </p>
-              </div>
-              <div className="space-x-4">
-                <Button asChild>
-                  <Link href="/dashboard">Get Started</Link>
-                </Button>
 
-                <Button variant="outline">Learn More</Button>
-              </div>
-            </div>
+          <div className="hidden md:flex space-x-8 items-center">
+            <Link
+              href="#features"
+              className="hover:text-emerald-500 transition-colors"
+            >
+              Features
+            </Link>
+            <Link
+              href="#how-it-works"
+              className="hover:text-emerald-500 transition-colors"
+            >
+              How It Works
+            </Link>
+            <Link
+              href="#testimonials"
+              className="hover:text-emerald-500 transition-colors"
+            >
+              Testimonials
+            </Link>
+            <Button
+              className="bg-emerald-600 hover:bg-emerald-700 ml-4"
+              asChild
+            >
+              <Link href="/dashboard">Get Started</Link>
+            </Button>
           </div>
-        </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800 justify-center flex">
-          <div className="container px-4 md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">Key Features</h2>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <DollarSign className="h-6 w-6 mr-2" />
-                    Track Expenses
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p>Easily log your daily and monthly expenses to maintain a clear financial picture.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <PieChart className="h-6 w-6 mr-2" />
-                    Spending Patterns
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p>Visualize your spending habits to make informed financial decisions.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Target className="h-6 w-6 mr-2" />
-                    Set Goals
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p>Define and monitor your personal financial goals for better financial planning.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <TrendingUp className="h-6 w-6 mr-2" />
-                    Financial Health
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p>Get a comprehensive overview of your financial health at a glance.</p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-        <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">What Our Users Say</h2>
-            <div className="max-w-3xl mx-auto">
-              <blockquote className="border-l-4 pl-4 italic">
-              &quot;FinTrack has completely transformed how I manage my finances. I now have a clear understanding of my
-                spending patterns and feel more in control of my financial future.&quot;
-              </blockquote>
-              <p className="mt-4 font-semibold">- Anthony, Young Professional</p>
-            </div>
-          </div>
-        </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800 justify-center flex">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Ready to Take Control?</h2>
-                <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
-                  Start your journey towards financial stability today with FinTrack.
-                </p>
-              </div>
-              <Button asChild className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
+        </div>
+      </nav>
+
+      <section className="pt-32 pb-20 container mx-auto px-6 h-screen flex items-center">
+        <div className="flex flex-col md:flex-row items-center justify-between">
+          <div className="md:w-1/2 mb-12 md:mb-0">
+            <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
+              Take Control of Your
+              <span className="text-emerald-500"> Financial Future</span>
+            </h1>
+            <p className="text-xl text-gray-300 mb-8">
+              Smart budgeting, expense tracking, and financial insights - all in
+              one powerful platform.
+            </p>
+            <div className="flex space-x-4">
+              <Button
+                className="bg-emerald-600 hover:bg-emerald-700 px-8 py-6 text-lg"
+                asChild
+              >
                 <Link href="/dashboard">
-                  Get Started
-                  <ChevronRight className="ml-2 h-4 w-4" />
+                  Start for Free
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
             </div>
           </div>
-        </section>
-      </main>
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-        <p className="text-xs text-gray-500 dark:text-gray-400">© 2023 FinTrack. All rights reserved.</p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
-            Terms of Service
-          </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
-            Privacy
-          </Link>
-        </nav>
+
+          <div className="md:w-1/2 flex justify-center">
+            <div className="relative w-full max-w-lg">
+              <div className="absolute inset-0 bg-emerald-500/20 blur-3xl rounded-full" />
+              <Image
+                src={"/assets/preview.png"}
+                alt="Dashboard Preview"
+                width={700}
+                height={400}
+                className="relative z-10 rounded-2xl shadow-2xl"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" className="py-20 bg-[#1E293B]">
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-bold text-center mb-16">
+            Powerful Features
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-6 bg-[#0F172A] rounded-xl hover:transform hover:-translate-y-2 transition-all">
+              <BarChart className="h-12 w-12 text-emerald-500 mb-4" />
+              <h3 className="text-xl font-semibold mb-3">
+                Real-time Analytics
+              </h3>
+              <p className="text-gray-400">
+                Get instant insights into your spending patterns with
+                interactive charts.
+              </p>
+            </div>
+
+            <div className="p-6 bg-[#0F172A] rounded-xl hover:transform hover:-translate-y-2 transition-all">
+              <Shield className="h-12 w-12 text-emerald-500 mb-4" />
+              <h3 className="text-xl font-semibold mb-3">
+                Bank-level Security
+              </h3>
+              <p className="text-gray-400">
+                Your financial data is protected with encryption.
+              </p>
+            </div>
+
+            <div className="p-6 bg-[#0F172A] rounded-xl hover:transform hover:-translate-y-2 transition-all">
+              <Clock className="h-12 w-12 text-emerald-500 mb-4" />
+              <h3 className="text-xl font-semibold mb-3">Easily manage transactions</h3>
+              <p className="text-gray-400">
+                Track and manage your financial transactions effortlessly with our intuitive interface.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="how-it-works" className="py-20">
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-bold text-center mb-16">How It Works</h2>
+
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-12 md:space-y-0">
+            <div className="text-center md:w-1/3 px-6">
+              <div className="mb-4 text-emerald-500 text-2xl font-bold">1</div>
+              <h3 className="text-xl font-semibold mb-3">Connect Accounts</h3>
+              <p className="text-gray-400">
+                Securely create your account.
+              </p>
+            </div>
+
+            <div className="text-center md:w-1/3 px-6">
+              <div className="mb-4 text-emerald-500 text-2xl font-bold">2</div>
+              <h3 className="text-xl font-semibold mb-3">Track & Categorize</h3>
+              <p className="text-gray-400">
+                Automatically categorize transactions and set budgets.
+              </p>
+            </div>
+
+            <div className="text-center md:w-1/3 px-6">
+              <div className="mb-4 text-emerald-500 text-2xl font-bold">3</div>
+              <h3 className="text-xl font-semibold mb-3">Optimize & Grow</h3>
+              <p className="text-gray-400">
+                Get personalized recommendations to improve your finances.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonials" className="py-20 bg-[#1E293B]">
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-bold text-center mb-16">
+            What Users Say
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="p-8 bg-[#0F172A] rounded-xl">
+              <div className="flex items-center mb-4">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage
+                    src="https://ui-avatars.com/api/?name=Sarah+Jhonson"
+                    alt="@user"
+                  />
+                  <AvatarFallback>SC</AvatarFallback>
+                </Avatar>
+                <div className="ml-4">
+                  <h4 className="font-semibold">Sarah Johnson</h4>
+                  <p className="text-sm text-gray-400">Financial Analyst</p>
+                </div>
+                <BadgeCheck className="text-emerald-500 ml-auto" />
+              </div>
+              <p className="text-gray-300">
+                "FinTrack completely transformed how I manage my finances. The
+                insights helped me save 30% more monthly!"
+              </p>
+            </div>
+
+            <div className="p-8 bg-[#0F172A] rounded-xl">
+              <div className="flex items-center mb-4">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage
+                    src="https://ui-avatars.com/api/?name=Mike+Chen"
+                    alt="@user"
+                  />
+                  <AvatarFallback>SC</AvatarFallback>
+                </Avatar>
+                <div className="ml-4">
+                  <h4 className="font-semibold">Mike Chen</h4>
+                  <p className="text-sm text-gray-400">Entrepreneur</p>
+                </div>
+                <BadgeCheck className="text-emerald-500 ml-auto" />
+              </div>
+              <p className="text-gray-300">
+                "Finally a financial app that's both powerful and easy to use.
+                The auto-sync feature is a game-changer!"
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="border-t border-[#334155]">
+        <div className="container mx-auto px-6 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center space-x-2 mb-4">
+                <a href="https://www.freepnglogos.com/images/f-letter-logo-png-1555.html">
+                  <Image
+                    alt="logo"
+                    width={42}
+                    height={42}
+                    src={"/assets/icon-192x192.png"}
+                    className="[filter:invert(61%)_sepia(55%)_saturate(4724%)_hue-rotate(125deg)_brightness(97%)_contrast(87%);]"
+                  />
+                </a>
+                <span className="text-xl font-bold">FinTrack</span>
+              </div>
+              <p className="text-gray-400">Empowering financial freedom</p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">Product</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li>
+                  <Link href="#features" className="hover:text-emerald-500">
+                    Features
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#how-it-works" className="hover:text-emerald-500">
+                    How It Works
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#pricing" className="hover:text-emerald-500">
+                    Pricing
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">Company</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li>
+                  <Link href="/" className="hover:text-emerald-500">
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/" className="hover:text-emerald-500">
+                    Blog
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/" className="hover:text-emerald-500">
+                    Careers
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">Legal</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li>
+                  <Link href="/" className="hover:text-emerald-500">
+                    Privacy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/" className="hover:text-emerald-500">
+                    Terms
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/" className="hover:text-emerald-500">
+                    Security
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-[#334155] mt-12 pt-8 text-center text-gray-400">
+            <p>© 2025 FinTrack. All rights reserved.</p>
+          </div>
+        </div>
       </footer>
     </div>
-  )
+  );
 }
-
