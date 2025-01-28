@@ -66,10 +66,10 @@ export const budgetsApi = {
   getAll: async () => {
     return api.get('/budgets');
   },
-  create: async (data: { monthly_limit: number }) => {
+  create: async (data: { monthly_limit: number, month: string }) => {
     return api.post('/budgets', data);
   },
-  update: async (id: string, data: { monthly_limit: number }) => {
+  update: async (id: string, data: { monthly_limit: number, month: string }) => {
     return api.put(`/budgets/${id}`, data);
   }
 };
@@ -99,4 +99,5 @@ export interface Budget {
     _id: string;
     user_id: string;
     monthly_limit: number;
+    month: string;
   }

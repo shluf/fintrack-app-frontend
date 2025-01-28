@@ -107,7 +107,7 @@ export function TransactionsTable({
     <div className="border rounded-lg">
       <div className="flex justify-between items-center p-4">
         <div className="text-sm text-muted-foreground">
-          <span className="hidden md:block">Transactions for</span> {selectedMonth.month}, {selectedMonth.year}
+          <span className="hidden md:inline">Transactions for</span> {selectedMonth.month}, {selectedMonth.year}
         </div>
         <div className="flex gap-2">
           <ExportPDFButton

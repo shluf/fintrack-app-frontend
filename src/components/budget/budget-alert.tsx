@@ -1,16 +1,19 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, AlertTriangle } from "lucide-react";
+import { AlertCircle, AlertTriangle, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 type BudgetAlertsProps = {
   totalExpenses: number;
   monthlyLimit: number;
   percentageUsed: number;
+  budgetDetails?: boolean;
 };
 
 export const BudgetAlerts = ({
   totalExpenses,
   monthlyLimit,
   percentageUsed,
+  budgetDetails = false,
 }: BudgetAlertsProps) => {
   if (!monthlyLimit) return null;
 
@@ -32,6 +35,7 @@ export const BudgetAlerts = ({
           <AlertTitle>Approaching Budget Limit</AlertTitle>
           <AlertDescription>
             {percentageUsed.toFixed(0)}% budget used. Consider reducing expenses.
+            {budgetDetails && <Link href="/budget" className="flex items-center justify-end text-green-button">Details <ChevronRight /></Link>}
           </AlertDescription>
         </Alert>
       )}

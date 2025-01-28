@@ -11,7 +11,7 @@ interface RecentTransactionsProps {
 }
 
 export const RecentTransactions = ({ transactions, formatRupiah }: RecentTransactionsProps) => (
-  <Card className="bg-[#1e2e2e] border-none">
+  <Card className="bg-green-dark border-none">
     <CardHeader className="flex flex-row items-center justify-between">
       <CardTitle className="text-lg font-medium text-gray-400">
         Recent Transactions

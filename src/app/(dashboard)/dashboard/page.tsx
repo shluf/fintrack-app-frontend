@@ -52,8 +52,8 @@ export default function DashboardPage() {
 
           <div className="space-y-6">
             <BalanceCard summary={summary} formatRupiah={formatRupiah} />
+            <DashboardNotificationCard />
             <RecentTransactions transactions={transactions} formatRupiah={formatRupiah} />
-            <DashboardNotificationCard transactions={transactions} formatRupiah={formatRupiah} />
           </div>
         </div>
       </div>

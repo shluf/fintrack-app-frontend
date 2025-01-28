@@ -1,5 +1,6 @@
 import { Progress } from "@/components/ui/progress";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn, formatRupiah } from "@/lib/utils";
 
 type BudgetProgressProps = {
   totalExpenses: number;
@@ -13,6 +14,9 @@ export const BudgetProgress = ({
   percentageUsed,
 }: BudgetProgressProps) => {
   const remainingBudget = monthlyLimit - totalExpenses;
+  const hasBudget = monthlyLimit > 0;
+
+  if (!hasBudget) return null;
 
   return (
     <Card>
@@ -21,16 +25,28 @@ export const BudgetProgress = ({
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex justify-between text-sm">
-          <span>Spent: ${totalExpenses.toFixed(2)}</span>
-          <span>Budget: ${monthlyLimit.toFixed(2)}</span>
+          <span>Spent: {formatRupiah(totalExpenses)}</span>
+          <span>Budget: {formatRupiah(monthlyLimit)}</span>
         </div>
-        <Progress value={percentageUsed} />
-        <div className="text-sm text-muted-foreground">
+        <Progress
+          value={percentageUsed}
+          className={cn(
+            "h-3",
+            percentageUsed > 100
+              ? "[&>div]:bg-red-500"
+              : percentageUsed > 80
+              ? "[&>div]:bg-yellow-500"
+              : "[&>div]:bg-green-500"
+          )}
+        />
+        <div className="text-sm">
           {remainingBudget >= 0 ? (
-            <p>${remainingBudget.toFixed(2)} remaining</p>
+            <p className="text-green-500">
+              Remaining: {formatRupiah(remainingBudget)}
+            </p>
           ) : (
             <p className="text-red-500">
-              Exceeded by ${Math.abs(remainingBudget).toFixed(2)}
+              Exceeded by {formatRupiah(Math.abs(remainingBudget))}
             </p>
           )}
         </div>

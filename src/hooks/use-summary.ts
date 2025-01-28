@@ -40,6 +40,29 @@ export const useSummary = (transactions: Transaction[], selectedMonth: SelectedM
       return transaction.type === "income" ? acc + transaction.amount : acc - transaction.amount
     }, 0)
 
+    
+    const calculateCumulativeBalance = (endDate: Date) => {
+      return transactions
+        .filter(transaction => new Date(transaction.date) <= endDate)
+        .reduce((acc, transaction) => {
+          return transaction.type === "income" 
+            ? acc + transaction.amount 
+            : acc - transaction.amount
+        }, 0)
+    }
+
+    const getMonthEndDate = (monthIndex: number, year: number) => {
+      return new Date(year, monthIndex + 1, 0)
+    }
+
+    const currentMonthEndDate = getMonthEndDate(currentMonthIndex, currentYear)
+    const prevMonthEndDate = getMonthEndDate(prevMonthIndex, prevYear)
+
+    const cumulativeBalanceCurrent = calculateCumulativeBalance(currentMonthEndDate)
+    const cumulativeBalancePrevious = calculateCumulativeBalance(prevMonthEndDate)
+
+    const cumulativeBalanceDifference = cumulativeBalanceCurrent - cumulativeBalancePrevious
+    
     const calculatePercentage = (current: number, previous: number): number => {
       if (previous === 0) {
         if (current === 0) return 0
@@ -55,7 +78,8 @@ export const useSummary = (transactions: Transaction[], selectedMonth: SelectedM
       percentageBalance: calculatePercentage(currentSummary.balance, prevSummary.balance),
       differenceIncome: currentSummary.totalIncome - prevSummary.totalIncome,
       differenceExpenses: currentSummary.totalExpenses - prevSummary.totalExpenses,
-      totalBalance
+      totalBalance,
+      cumulativeBalanceDifference
     }
   }
 

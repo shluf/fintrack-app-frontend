@@ -50,7 +50,7 @@ export function MobileNavItem({
       <span className={`flex justify-center items-center group-hover:bg-zinc-600 w-full rounded-full py-1 ${isActive && "bg-zinc-800"}`}>
         <Icon className={`h-6 w-6 group-hover:text-white ${isActive && "text-white"}`} />
       </span>
-      <span className="text-xs font-medium">{label}</span>
+      <span className={`text-xs font-medium ${isActive && "text-white"}`}>{label}</span>
     </button>
   )
 }

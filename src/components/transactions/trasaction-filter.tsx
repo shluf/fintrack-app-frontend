@@ -38,7 +38,7 @@ export function TransactionsFilters({
         </SelectContent>
       </Select>
       </div>
-      <h3 className="hidden md:block font-semibold text-2xl text-green-button text-end">&quot;Easy track your transactions&quot;</h3>
+      <h3 className="hidden md:block font-semibold text-2xl text-green-button text-end">&quot;Easily track your transactions&quot;</h3>
     </div>
   );
 }

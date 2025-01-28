@@ -23,7 +23,7 @@ interface BalanceOverviewProps {
 
 export const BalanceOverview = ({ summary, formatRupiah }: BalanceOverviewProps) => (
   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-    <Card className="bg-[#1e2e2e] border-none flex items-center justify-center flex-col">
+    <Card className="bg-green-dark border-none flex items-center justify-center flex-col">
       <CardHeader>
         <CardTitle className="text-lg font-medium text-gray-400">Balance</CardTitle>
       </CardHeader>

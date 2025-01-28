@@ -17,7 +17,7 @@ export  const DashboardStatCard = ({
     type,
     formatRupiah
   }: StatCardProps) => (
-    <Card className={`bg-${type === 'income' ? 'green-card' : '[#1e2e2e]'} border-none`}>
+    <Card className="bg-green-dark border-none">
       <CardContent className="p-6">
         <div className="flex flex-col">
           <div className="flex justify-between items-end">
@@ -34,7 +34,7 @@ export  const DashboardStatCard = ({
           <p className="text-gray-400 text-xs text-nowrap">
             {difference === 0
               ? "stable this month"
-              : `${difference > 0 ? "increase" : "decrease"} up to ${formatRupiah(
+              : `${difference > 0 ? "increased" : "decreased"} by ${formatRupiah(
                   Math.abs(difference),
                   { abbreviate: true }
                 )} this month`}

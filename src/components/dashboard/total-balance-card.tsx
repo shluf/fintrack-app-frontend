@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, TrendingDown, TrendingUp } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 interface Summary {
     totalBalance: number;
+    cumulativeBalanceDifference: number;
   }
   
 interface BalanceCardProps {
@@ -20,7 +21,7 @@ const BalanceCard: React.FC<BalanceCardProps> = ({ summary, formatRupiah }) => {
     };
 
   return (
-    <Card className="bg-[#1e2e2e] border-none">
+    <Card className="bg-green-dark border-none">
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="text-lg font-medium text-gray-400">
           Lifetime
@@ -48,9 +49,14 @@ const BalanceCard: React.FC<BalanceCardProps> = ({ summary, formatRupiah }) => {
               </div>
             </div>
             <div>
-              <p className="text-base md:text-lg tracking-wider">
-                4358 4445 0968 2323
+              <div className='flex'>
+
+              <p className="text-sm md:text-base tracking-wider">
+                {formatRupiah(summary.cumulativeBalanceDifference)}
               </p>
+              {summary.cumulativeBalanceDifference > 0 && <TrendingUp className='text-green-button' />}
+              {summary.cumulativeBalanceDifference < 0 && <TrendingDown className='text-red' />}
+              </div>
               <p className="text-sm opacity-80 mt-1">08/24</p>
             </div>
           </div>

@@ -8,6 +8,12 @@ export default {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+	"bg-emerald-500/20",
+	"bg-purple-500/20",
+	"text-emerald-500",
+	"text-purple-500",
+  ],
   theme: {
   	extend: {
 		fontFamily: {
@@ -18,6 +24,7 @@ export default {
   			foreground: 'hsl(var(--foreground))',
 			green:{
 				card: "#21322e",
+				dark: "#1e2e2e",
 				bar: "#20302e",
 				button: "#10b981",
 			},
