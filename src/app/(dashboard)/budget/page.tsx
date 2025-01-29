@@ -66,7 +66,7 @@ export default function BudgetPage() {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 md:pb-4 pb-[120px]">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold">Budget Tracker</h1>

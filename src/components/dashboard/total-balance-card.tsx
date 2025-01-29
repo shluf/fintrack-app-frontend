@@ -10,7 +10,7 @@ interface Summary {
   
 interface BalanceCardProps {
     summary: Summary;
-    formatRupiah: (amount: number) => string;
+    formatRupiah: (amount: number, options?: { abbreviate?: boolean }) => string;
 }
 
 const BalanceCard: React.FC<BalanceCardProps> = ({ summary, formatRupiah }) => {
@@ -49,15 +49,15 @@ const BalanceCard: React.FC<BalanceCardProps> = ({ summary, formatRupiah }) => {
               </div>
             </div>
             <div>
-              <div className='flex'>
+              <div className='flex rounded-lg bg-slate-600/30 justify-center'>
 
-              <p className="text-sm md:text-base tracking-wider">
-                {formatRupiah(summary.cumulativeBalanceDifference)}
+              <p className="text-sm md:text-base tracking-wider text-white/80">
+                {formatRupiah(summary.cumulativeBalanceDifference,{abbreviate: true})}
               </p>
               {summary.cumulativeBalanceDifference > 0 && <TrendingUp className='text-green-button' />}
               {summary.cumulativeBalanceDifference < 0 && <TrendingDown className='text-red' />}
               </div>
-              <p className="text-sm opacity-80 mt-1">08/24</p>
+              <p className="text-sm opacity-80 mt-1 text-end">{new Date().toLocaleDateString('id-ID', {month:'2-digit', year:'2-digit'})}</p>
             </div>
           </div>
         </div>

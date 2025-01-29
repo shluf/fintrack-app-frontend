@@ -9,6 +9,10 @@ import { cn } from "@/lib/utils";
 import { MobileNavItem } from "./mobile-nav-item";
 import { MonthDropdown } from "./month-dropdown";
 import { useState } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { TransactionForm } from "@/components/transactions/transaction-form";
+import Link from "next/link";
 
 
 interface MobileNavProps {
@@ -60,30 +64,36 @@ export function MobileNav({
           className
         )}
       >
-        <div className="mx-4 mb-4">
+        <div className="mx-4 mb-2">
           <div className="grid grid-cols-5 items-center bg-green-bar/60 backdrop-blur-lg rounded-2xl p-4 shadow-lg border border-green-bar/5">
             {navItems.slice(0, 2).map((item) => (
-              <MobileNavItem key={item.label} isActive={pathname === item.href} {...item} />
+              <MobileNavItem
+                key={item.label}
+                isActive={pathname === item.href}
+                {...item}
+              />
             ))}
 
-            <div className="relative flex items-center justify-center">
-              <button
-                className="absolute left-1/2 -translate-x-1/2 translate-y-4 bottom-0 flex items-center justify-center w-14 h-14 bg-zinc-700 rounded-xl shadow-lg hover:bg-zinc-800 transition-colors"
-                aria-label="Add new"
-              >
-                <Plus className="w-7 h-7 text-white" />
-              </button>
+            <div className=" flex items-center justify-center">
+              <Link href="/transactions?action=add" passHref>
+                <button
+                  className="flex items-center justify-center w-14 h-14 bg-zinc-700 rounded-xl shadow-lg hover:bg-zinc-800 transition-colors"
+                  aria-label="Add new"
+                >
+                  <Plus className="w-7 h-7 text-white" />
+                </button>
+              </Link>
             </div>
 
             {navItems.slice(2).map((item) => (
-              <MobileNavItem 
-                key={item.label} 
+              <MobileNavItem
+                key={item.label}
                 isActive={
-                  item.label === "Budget" 
-                    ? pathname === item.href 
+                  item.label === "Budget"
+                    ? pathname === item.href
                     : isMonthDropdownOpen
-                } 
-                {...item} 
+                }
+                {...item}
               />
             ))}
           </div>

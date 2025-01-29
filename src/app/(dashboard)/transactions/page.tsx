@@ -4,8 +4,11 @@ import { transactionsApi, type Transaction } from '@/lib/api';
 import { TransactionsFilters } from '@/components/transactions/trasaction-filter';
 import { TransactionsTable } from '@/components/transactions/transaction-table';
 import { TransactionsHeader } from '@/components/transactions/transaction-header';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function TransactionsPage() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [filteredTransactions, setFilteredTransactions] = useState<Transaction[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -15,6 +18,22 @@ export default function TransactionsPage() {
     key: 'date' as keyof Transaction,
     direction: 'desc' as 'asc' | 'desc'
   });
+
+  useEffect(() => {
+    if (searchParams.get('action') === 'add') {
+      setIsDialogOpen(true);
+    }
+  }, [searchParams]);
+
+  const handleDialogOpenChange = (open: boolean) => {
+    setIsDialogOpen(open);
+    
+    if (!open) {
+      const params = new URLSearchParams(searchParams);
+      params.delete('action');
+      router.replace(`/transactions?${params.toString()}`, { scroll: false });
+    }
+  };
 
   const fetchTransactions = async () => {
     try {
@@ -75,10 +94,10 @@ export default function TransactionsPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6  md:pb-4 pb-[120px]">
       <TransactionsHeader
         isDialogOpen={isDialogOpen}
-        setIsDialogOpen={setIsDialogOpen}
+        setIsDialogOpen={handleDialogOpenChange}
         onTransactionAdded={fetchTransactions}
       />
       <TransactionsFilters
