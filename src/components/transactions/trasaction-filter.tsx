@@ -1,6 +1,7 @@
 'use client';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { ArrowDown, ArrowUp, Filter, Search } from 'lucide-react';
 
 interface TransactionsFiltersProps {
   searchTerm: string;
@@ -18,27 +19,40 @@ export function TransactionsFilters({
   return (
     <div className="flex justify-between px-4 py-8 border rounded-lg">
       <div className="flex gap-4 items-center">
-      <Input
-        placeholder="Search transactions..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="max-w-xs"
-      />
-      <Select
-        value={typeFilter}
-        onValueChange={setTypeFilter}
-      >
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Filter by type" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">All Types</SelectItem>
-          <SelectItem value="income">Income</SelectItem>
-          <SelectItem value="expense">Expense</SelectItem>
-        </SelectContent>
-      </Select>
+        <div className="relative">
+          <Input
+            placeholder="Search transactions..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className=" border-slate-700 text-slate-100 w-64 focus:ring-emerald-500 focus:border-emerald-500 pl-10"
+          />
+          <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+        </div>
+        <Select value={typeFilter} onValueChange={setTypeFilter}>
+          <SelectTrigger className=" border-slate-700 w-[180px]">
+            <SelectValue placeholder="Filter by type" />
+            <Filter className="h-4 w-4 ml-2 text-slate-500" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Types</SelectItem>
+            <SelectItem value="income">
+              <div className="flex items-center gap-2">
+                <ArrowDown className="h-4 w-4 text-emerald-400" />
+                Income
+              </div>
+            </SelectItem>
+            <SelectItem value="expense">
+              <div className="flex items-center gap-2">
+                <ArrowUp className="h-4 w-4 text-red-400" />
+                Expense
+              </div>
+            </SelectItem>
+          </SelectContent>
+        </Select>
       </div>
-      <h3 className="hidden md:block font-semibold text-2xl text-green-button text-end">&quot;Easily track your transactions&quot;</h3>
+      <h3 className="hidden md:block font-semibold text-2xl text-green-button text-end">
+        &quot;Easily track your transactions&quot;
+      </h3>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import type { LucideIcon } from "lucide-react"
+import { ChevronRight, type LucideIcon } from "lucide-react"
 import Link from "next/link"
 
 interface NavItemProps {
@@ -15,13 +15,16 @@ export function NavItem({ icon: Icon, label, href, isActive, className }: NavIte
     <Link
       href={href}
       className={cn(
-        "flex items-center gap-3 px-6 py-2.5 text-gray-400 hover:text-white hover:bg-zinc-800/50 transition-colors rounded-lg mx-3",
-        isActive && "text-white bg-zinc-800/50",
+        "group flex items-center gap-3 px-4 py-3 text-slate-400",
+        "hover:bg-slate-800/30 hover:text-emerald-400 rounded-xl",
+        "transition-all duration-300",
+        isActive && "bg-gradient-to-r from-emerald-500/20 to-cyan-400/10 border-l-4 border-emerald-400 text-emerald-400",
         className,
       )}
     >
       <Icon className="h-5 w-5" />
       <span className="font-medium">{label}</span>
+      {isActive && <ChevronRight className="ml-auto h-4 w-4 text-emerald-400" />}
     </Link>
   )
 }

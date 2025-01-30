@@ -56,28 +56,30 @@ export default function LandingPage() {
       <section className="pt-32 pb-20 container mx-auto px-6 h-screen flex items-center">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="md:w-1/2 mb-12 md:mb-0">
-            <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-4 md:mb-6">
               Take Control of Your
               <span className="text-emerald-500"> Financial Future</span>
             </h1>
-            <p className="text-xl text-gray-300 mb-8">
+            <p className="text-base md:text-xl text-gray-300 mb-8">
               Smart budgeting, expense tracking, and financial insights - all in
               one powerful platform.
             </p>
             <div className="flex space-x-4">
               <Button
-                className="bg-emerald-600 hover:bg-emerald-700 px-8 py-6 text-lg"
+                className="group bg-emerald-600 hover:bg-emerald-700 px-8 py-6 text-lg transition-all duration-300"
                 asChild
               >
-                <Link href="/dashboard">
+                <Link href="/dashboard" className="flex items-center">
                   Start for Free
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <span className="ml-2 inline-block transition-transform duration-300 group-hover:translate-x-1 group-hover:-rotate-45">
+                    <ArrowRight className="h-4 w-4 transform transition-[transform] duration-300" />
+                  </span>
                 </Link>
               </Button>
             </div>
           </div>
 
-          <div className="md:w-1/2 flex justify-center">
+          <div className="hidden md:w-1/2 md:flex justify-center">
             <div className="relative w-full max-w-lg">
               <div className="absolute inset-0 bg-emerald-500/20 blur-3xl rounded-full" />
               <Image
@@ -122,9 +124,12 @@ export default function LandingPage() {
 
             <div className="p-6 bg-[#0F172A] rounded-xl hover:transform hover:-translate-y-2 transition-all">
               <Clock className="h-12 w-12 text-emerald-500 mb-4" />
-              <h3 className="text-xl font-semibold mb-3">Easily manage transactions</h3>
+              <h3 className="text-xl font-semibold mb-3">
+                Easily manage transactions
+              </h3>
               <p className="text-gray-400">
-                Track and manage your financial transactions effortlessly with our intuitive interface.
+                Track and manage your financial transactions effortlessly with
+                our intuitive interface.
               </p>
             </div>
           </div>
@@ -139,9 +144,7 @@ export default function LandingPage() {
             <div className="text-center md:w-1/3 px-6">
               <div className="mb-4 text-emerald-500 text-2xl font-bold">1</div>
               <h3 className="text-xl font-semibold mb-3">Connect Accounts</h3>
-              <p className="text-gray-400">
-                Securely create your account.
-              </p>
+              <p className="text-gray-400">Securely create your account.</p>
             </div>
 
             <div className="text-center md:w-1/3 px-6">
@@ -186,8 +189,8 @@ export default function LandingPage() {
                 <BadgeCheck className="text-emerald-500 ml-auto" />
               </div>
               <p className="text-gray-300">
-              &quot;FinTrack completely transformed how I manage my finances. The
-                insights helped me save 30% more monthly!&quot;
+                &quot;FinTrack completely transformed how I manage my finances.
+                The insights helped me save 30% more monthly!&quot;
               </p>
             </div>
 
@@ -207,8 +210,8 @@ export default function LandingPage() {
                 <BadgeCheck className="text-emerald-500 ml-auto" />
               </div>
               <p className="text-gray-300">
-              &quot;Finally a financial app that&pos;s both powerful and easy to use.
-                The auto-sync feature is a game-changer!&quot;
+                &quot;Finally a financial app that&pos;s both powerful and easy
+                to use. The auto-sync feature is a game-changer!&quot;
               </p>
             </div>
           </div>

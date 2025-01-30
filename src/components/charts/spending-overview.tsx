@@ -16,13 +16,13 @@ export function SpendingOverview({ data, className, filterType }: SpendingOvervi
     ...((filterType === 'all' || filterType === 'income') ? { 
       income: {
         label: "Income",
-        color: "hsl(var(--chart-1))",
+        color: "hsl(var(--chart-2))",
       } 
     } : {}),
     ...((filterType === 'all' || filterType === 'expense') ? { 
       expense: {
         label: "Expense",
-        color: "hsl(var(--chart-2))",
+        color: "hsl(var(--chart-1))",
       } 
     } : {}),
   };

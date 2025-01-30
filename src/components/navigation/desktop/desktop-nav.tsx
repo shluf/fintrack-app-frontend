@@ -38,28 +38,30 @@ const DesktopNav = ({
   return (
     <aside
       className={cn(
-        "hidden md:flex flex-col pt-3 w-[360px] bg-green-bar text-white rounded-2xl m-4",
-        "border border-zinc-800/50 shadow-xl",
+        "hidden md:flex flex-col pt-3 w-[360px] bg-[#0F172A] rounded-2xl m-4",
+        "border border-slate-800/50 shadow-2xl backdrop-blur-lg",
         className
       )}
     >
       <div className="p-4">
-      <div className="flex items-center gap-2 rounded-lg bg-green-button shadow-inner p-2">
-      <Avatar className="h-8 w-8">
-        <AvatarImage
-          src="https://ui-avatars.com/api/?name=Admin"
-          alt="@user"
-        />
-        <AvatarFallback>SC</AvatarFallback>
-      </Avatar>
-      <div className="flex flex-col">
-        <p className="text-sm font-medium leading-none text-green-bar">Admin</p>
-        <p className="text-xs leading-none text-green-900">admin@admin.com</p>
-      </div>
-    </div>
+        <div className="flex items-center gap-3 rounded-xl bg-slate-900/50 p-3 border border-slate-800/50">
+          <Avatar className="h-10 w-10 border-2 border-emerald-500/20">
+            <AvatarImage
+              src="https://ui-avatars.com/api/?name=Admin"
+              alt="@user"
+            />
+            <AvatarFallback className="bg-slate-800 text-emerald-400">
+              SC
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col">
+            <p className="text-sm font-medium text-slate-200">Admin</p>
+            <p className="text-xs text-slate-400/80">admin@admin.com</p>
+          </div>
+        </div>
       </div>
 
-      <nav className="flex-1 py-6 space-y-1">
+      <nav className="flex-1 py-6 space-y-2 px-3">
         {menuItems.map((item) => (
           <NavItem
             key={item.label}
@@ -74,16 +76,16 @@ const DesktopNav = ({
       <MonthGrid
         selectedMonth={selectedMonth}
         onSelectMonth={(month) => {
-          setSelectedMonth({ ...selectedMonth, month })
+          setSelectedMonth({ ...selectedMonth, month });
         }}
         onSelectYear={(year) => {
-          setSelectedMonth({ ...selectedMonth, year })
+          setSelectedMonth({ ...selectedMonth, year });
         }}
         className="py-6"
       />
 
-      <div className="p-6 text-center border-t border-zinc-800">
-        <p className="text-xs text-gray-400 hover:text-white">
+      <div className="p-6 text-center border-t border-slate-800/50">
+        <p className="text-xs bg-gradient-to-r from-emerald-400 to-cyan-300 bg-clip-text text-transparent">
           Today is {new Date().toLocaleString("default", { weekday: "long" })},{" "}
           {new Date().toLocaleString("default", { month: "long" })}{" "}
           {new Date().getDate()}, {new Date().getFullYear()}.

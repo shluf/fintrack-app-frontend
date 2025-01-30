@@ -9,7 +9,8 @@ import { useToast } from "@/hooks/use-toast";
 import { authApi } from "@/lib/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -19,6 +20,7 @@ const loginSchema = z.object({
 export default function LoginPage() {
   const { toast } = useToast();
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
   const form = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -73,16 +75,30 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <Input
-              {...form.register("password")}
-              type="password"
-              placeholder="Password"
-              className={`bg-[#1E293B] border-[#334155] text-white placeholder:text-gray-400 ${
-                form.formState.errors.password
-                  ? "border-red-500"
-                  : "focus:border-emerald-500"
-              }`}
-            />
+            <div className="relative">
+              <Input
+                {...form.register("password")}
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                className={`bg-[#1E293B] border-[#334155] text-white placeholder:text-gray-400 pr-10 ${
+                  form.formState.errors.password
+                    ? "border-red-500"
+                    : "focus:border-emerald-500"
+                }`}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-emerald-500 transition-colors"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-5 w-5" />
+                ) : (
+                  <Eye className="h-5 w-5" />
+                )}
+              </button>
+            </div>
             {form.formState.errors.password && (
               <p className="text-red-500 text-sm mt-1">
                 {form.formState.errors.password.message?.toString()}

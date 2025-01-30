@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Eye, EyeOff, TrendingDown, TrendingUp } from 'lucide-react';
+import { CalendarDays, Eye, EyeOff, Sparkles, TrendingDown, TrendingUp, Wallet } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 interface Summary {
     totalBalance: number;
     cumulativeBalanceDifference: number;
+    percentageCumulativeBalanceDifference: number
   }
   
 interface BalanceCardProps {
@@ -20,50 +21,91 @@ const BalanceCard: React.FC<BalanceCardProps> = ({ summary, formatRupiah }) => {
       setShowBalance(!showBalance);
     };
 
-  return (
-    <Card className="bg-green-dark border-none">
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="text-lg font-medium text-gray-400">
-          Lifetime
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="relative bg-gradient-to-br from-emerald-500 to-emerald-600 p-4 md:p-6 rounded-xl h-40 md:h-48">
-          <div className="flex flex-col justify-between h-full">
-            <div className="flex flex-col justify-between">
-              <p className="text-sm opacity-80">Total Balance</p>
-              <div className="flex justify-between">
-                <p className="text-white text-2xl md:text-3xl font-bold mt-1">
-                  {showBalance
-                    ? formatRupiah(summary.totalBalance)
-                    : "*** *** ***"}
-                </p>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={toggleBalance}
-                  className="text-white"
-                >
-                  {showBalance ? <EyeOff size={20} /> : <Eye size={20} />}
-                </Button>
-              </div>
-            </div>
-            <div>
-              <div className='flex rounded-lg bg-slate-600/30 justify-center'>
+      return (
+        <Card className="bg-[#0F172A] border border-slate-800/50 hover:border-emerald-500/30 transition-all hover:scale-[101%] group relative overflow-hidden">
 
-              <p className="text-sm md:text-base tracking-wider text-white/80">
-                {formatRupiah(summary.cumulativeBalanceDifference,{abbreviate: true})}
-              </p>
-              {summary.cumulativeBalanceDifference > 0 && <TrendingUp className='text-green-button' />}
-              {summary.cumulativeBalanceDifference < 0 && <TrendingDown className='text-red' />}
-              </div>
-              <p className="text-sm opacity-80 mt-1 text-end">{new Date().toLocaleDateString('id-ID', {month:'2-digit', year:'2-digit'})}</p>
+          <div className="absolute inset-0 bg-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+          
+          <CardHeader className="flex flex-row items-center justify-between pb-3 border-b border-slate-800">
+            <div className="flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-emerald-400" />
+              <CardTitle className="text-lg font-semibold bg-emerald-400 bg-clip-text text-transparent">
+                Lifetime Wealth
+              </CardTitle>
             </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
+          </CardHeader>
+    
+          <CardContent className="mt-5">
+            <div className="relative bg-gradient-to-br from-slate-800/50 to-slate-900/30 p-6 rounded-xl border border-slate-800/50 shadow-inner">
+
+              <Wallet className="h-16 w-16 absolute -top-2 right-2 text-slate-800/40" />
+              
+              <div className="flex flex-col justify-between h-full space-y-6">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-sm text-emerald-300/80 font-medium">Total Balance</span>
+                    <div className="h-[2px] w-4 bg-emerald-400/30" />
+                  </div>
+                  
+                  <div className="flex justify-between items-start">
+                    <p className="text-white text-3xl font-bold tracking-tight drop-shadow-md">
+                      {showBalance
+                        ? formatRupiah(summary.totalBalance)
+                        : "••• ••• •••"}
+                    </p>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={toggleBalance}
+                      className="text-emerald-400/80 hover:bg-emerald-500/10 hover:text-emerald-300"
+                    >
+                      {showBalance ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </Button>
+                  </div>
+                </div>
+    
+                <div className="space-y-3">
+                  <div className={`flex items-center gap-2 px-3 py-2 rounded-lg backdrop-blur-sm ${
+                    summary.cumulativeBalanceDifference > 0 
+                      ? "bg-emerald-500/10 border border-emerald-500/20"
+                      : "bg-rose-500/10 border border-rose-500/20"
+                  }`}>
+                    <div className={`p-1 rounded-full ${
+                      summary.cumulativeBalanceDifference > 0 
+                        ? "bg-emerald-500/20 text-emerald-300"
+                        : "bg-rose-500/20 text-rose-300"
+                    }`}>
+                      {summary.cumulativeBalanceDifference > 0 ? (
+                        <TrendingUp className="h-4 w-4" />
+                      ) : (
+                        <TrendingDown className="h-4 w-4" />
+                      )}
+                    </div>
+                    <p className="text-sm font-medium tracking-wider text-slate-200">
+                      {formatRupiah(summary.cumulativeBalanceDifference, { abbreviate: true })}
+                    </p>
+                    {summary.cumulativeBalanceDifference > 0 && (
+                      <div className="ml-auto animate-pulse bg-emerald-500/10 px-2 py-1 rounded-full text-xs text-emerald-300">
+                        +{summary.percentageCumulativeBalanceDifference.toFixed(1)}%
+                      </div>
+                    )}
+                  </div>
+    
+                  <div className="flex items-center gap-2 justify-end text-slate-400/80">
+                    <CalendarDays className="h-4 w-4" />
+                    <p className="text-xs">
+                      {new Date().toLocaleDateString('id-ID', {
+                        month: 'long',
+                        year: 'numeric'
+                      })}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      );
+    };
 
 export default BalanceCard;

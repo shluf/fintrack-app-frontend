@@ -33,7 +33,7 @@ export const useExportReport = (reportRef: React.RefObject<HTMLDivElement | null
     try {
       const canvas = await html2canvas(reportRef.current, {
         scale: 2,
-        backgroundColor: "#1e2e2e",
+        // backgroundColor: "#1e2e2e",
       })
 
       const imgData = canvas.toDataURL("image/png")

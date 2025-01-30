@@ -79,7 +79,8 @@ export const useSummary = (transactions: Transaction[], selectedMonth: SelectedM
       differenceIncome: currentSummary.totalIncome - prevSummary.totalIncome,
       differenceExpenses: currentSummary.totalExpenses - prevSummary.totalExpenses,
       totalBalance,
-      cumulativeBalanceDifference
+      cumulativeBalanceDifference,
+      percentageCumulativeBalanceDifference: calculatePercentage(cumulativeBalanceCurrent, cumulativeBalancePrevious)
     }
   }
 

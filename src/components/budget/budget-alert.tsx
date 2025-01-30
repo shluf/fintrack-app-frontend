@@ -25,6 +25,7 @@ export const BudgetAlerts = ({
           <AlertTitle>Budget Exceeded!</AlertTitle>
           <AlertDescription>
             Exceeded by ${(totalExpenses - monthlyLimit).toFixed(2)}
+            {budgetDetails && <Link href="/budget" className="flex items-center justify-end text-green-button">Details <ChevronRight /></Link>}
           </AlertDescription>
         </Alert>
       )}

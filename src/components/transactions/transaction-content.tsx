@@ -14,6 +14,7 @@ export default function TransactionsContent() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [typeFilter, setTypeFilter] = useState('all');
+  const [loading, setLoading] = useState(true);
   const [sortConfig, setSortConfig] = useState({
     key: 'date' as keyof Transaction,
     direction: 'desc' as 'asc' | 'desc'
@@ -37,11 +38,14 @@ export default function TransactionsContent() {
 
   const fetchTransactions = async () => {
     try {
+      setLoading(true);
       const response = await transactionsApi.getAll();
       setTransactions(response.data.transactions);
       setFilteredTransactions(response.data.transactions);
     } catch (error) {
       console.error('Failed to fetch transactions:', error);
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -89,7 +93,19 @@ export default function TransactionsContent() {
     }));
   };
 
-  const handleUpdateTransactions = (updatedTransactions: Transaction[]) => {
+  const handleUpdateTransactions = (updatedTransaction: Transaction) => {
+    setTransactions((prevTransactions) => {
+      const exists = prevTransactions.some((t) => t._id === updatedTransaction._id);
+      return exists
+        ? prevTransactions.map((transaction) =>
+            transaction._id === updatedTransaction._id ? updatedTransaction : transaction
+          )
+        : [...prevTransactions, updatedTransaction];
+    });
+  };
+  
+
+  const handleDeleteTransactions = (updatedTransactions: Transaction[]) => {
     setTransactions(updatedTransactions);
   };
 
@@ -98,7 +114,7 @@ export default function TransactionsContent() {
       <TransactionsHeader
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={handleDialogOpenChange}
-        onTransactionAdded={fetchTransactions}
+        onUpdateTransactions={handleUpdateTransactions}
       />
       <TransactionsFilters
         searchTerm={searchTerm}
@@ -111,6 +127,8 @@ export default function TransactionsContent() {
         sortConfig={sortConfig}
         handleSort={handleSort}
         onUpdateTransactions={handleUpdateTransactions}
+        onDeleteTransactions={handleDeleteTransactions}
+        loading={loading}
       />
     </div>
   );
