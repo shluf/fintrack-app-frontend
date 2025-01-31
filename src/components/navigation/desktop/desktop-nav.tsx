@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LayoutDashboard, ArrowUpDown, Target } from "lucide-react";
 import { NavItem } from "./desktop-nav-item";
 import { MonthGrid } from "../month-grid";
 import { useMonthContext } from "@/hooks/month-context";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { authApi } from "@/lib/api";
+import { User, authApi } from "@/lib/api";
 
 interface DesktopNavProps {
   className?: string;
@@ -17,7 +17,12 @@ const DesktopNav = ({
   pathname,
 }: DesktopNavProps) => {
   const { selectedMonth, setSelectedMonth } = useMonthContext();
-  const user = authApi.getUserInfo();
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const user = authApi.getUserInfo();
+    setUser(user);
+  }, []);
 
   const menuItems = [
     {
