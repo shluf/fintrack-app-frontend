@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { Line, LineChart, XAxis, YAxis, ResponsiveContainer } from "recharts"
+import { Line, LineChart, XAxis, YAxis } from "recharts"
 import { cn, formatRupiah } from "@/lib/utils"
 
 interface SpendingOverviewProps {
