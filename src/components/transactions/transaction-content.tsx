@@ -9,8 +9,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 export default function TransactionsContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [filteredTransactions, setFilteredTransactions] = useState<Transaction[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]  | null>([]);
+  const [filteredTransactions, setFilteredTransactions] = useState<Transaction[]  | null>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [typeFilter, setTypeFilter] = useState('all');
@@ -52,9 +52,8 @@ export default function TransactionsContent() {
   useEffect(() => {
     fetchTransactions();
   }, []);
-
   useEffect(() => {
-    let filtered = [...transactions];
+    let filtered = transactions ? [...transactions] : [];
     if (typeFilter !== 'all') {
       filtered = filtered.filter(transaction => transaction.type === typeFilter);
     }
@@ -95,6 +94,7 @@ export default function TransactionsContent() {
 
   const handleUpdateTransactions = (updatedTransaction: Transaction) => {
     setTransactions((prevTransactions) => {
+      if (!prevTransactions) return [];
       const exists = prevTransactions.some((t) => t._id === updatedTransaction._id);
       return exists
         ? prevTransactions.map((transaction) =>

@@ -5,6 +5,7 @@ import { NavItem } from "./desktop-nav-item";
 import { MonthGrid } from "../month-grid";
 import { useMonthContext } from "@/hooks/month-context";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { authApi } from "@/lib/api";
 
 interface DesktopNavProps {
   className?: string;
@@ -16,6 +17,7 @@ const DesktopNav = ({
   pathname,
 }: DesktopNavProps) => {
   const { selectedMonth, setSelectedMonth } = useMonthContext();
+  const user = authApi.getUserInfo();
 
   const menuItems = [
     {
@@ -47,16 +49,16 @@ const DesktopNav = ({
         <div className="flex items-center gap-3 rounded-xl bg-slate-900/50 p-3 border border-slate-800/50">
           <Avatar className="h-10 w-10 border-2 border-emerald-500/20">
             <AvatarImage
-              src="https://ui-avatars.com/api/?name=Admin"
+              src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}`}
               alt="@user"
             />
             <AvatarFallback className="bg-slate-800 text-emerald-400">
-              SC
+              {user?.name ? user.name.charAt(0).toUpperCase() : 'US'}
             </AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
-            <p className="text-sm font-medium text-slate-200">Admin</p>
-            <p className="text-xs text-slate-400/80">admin@admin.com</p>
+            <p className="text-sm font-medium text-slate-200">{user?.name || '...'}</p>
+            <p className="text-xs text-slate-400/80">{user?.email || '...'}</p>
           </div>
         </div>
       </div>

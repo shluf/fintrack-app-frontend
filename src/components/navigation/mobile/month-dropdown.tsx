@@ -20,7 +20,7 @@ export function MonthDropdown({ isOpen, onClose, className }: MonthDropdownProps
       <div
         className={cn(
           "fixed bottom-28 left-4 right-4 z-50 transform transition-all duration-300 ease-out",
-          isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          isOpen ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0 translate-y-40"
         )}
       >
         <div className="bg-slate-900/80 backdrop-blur-lg rounded-2xl p-4 shadow-2xl border border-slate-800/50">

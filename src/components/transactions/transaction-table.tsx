@@ -27,7 +27,7 @@ import { ExportPDFButton } from './transaction-export';
 import { Skeleton } from '../ui/skeleton';
 
 interface TransactionsTableProps {
-  transactions: Transaction[];
+  transactions: Transaction[] | null;
   sortConfig: {
     key: keyof Transaction;
     direction: 'asc' | 'desc';
@@ -56,18 +56,23 @@ export function TransactionsTable({
   useEffect(() => {
     setCurrentPage(1);
   }, [selectedMonth, transactions]);
-
-  const filteredTransactions = selectedMonth.month === "All" 
-    ? transactions.filter(transaction => {
-      const transactionDate = new Date(transaction.date);
-      const transactionYear = format(transactionDate, 'yyyy');
-      return transactionYear ===  String(selectedMonth.year);
-    }) : transactions.filter(transaction => {
+  const filteredTransactions = transactions
+    ? transactions.filter((transaction) => {
         const transactionDate = new Date(transaction.date);
-        const transactionMonth = format(transactionDate, 'MMM');
-        const transactionYear = format(transactionDate, 'yyyy');
-        return transactionMonth === selectedMonth.month && transactionYear ===  String(selectedMonth.year);
-      });
+        const transactionYear = format(transactionDate, "yyyy");
+
+        if (selectedMonth.month === "All") {
+          return transactionYear === String(selectedMonth.year);
+        }
+
+        const transactionMonth = format(transactionDate, "MMM");
+        return (
+          transactionMonth === selectedMonth.month &&
+          transactionYear === String(selectedMonth.year)
+        );
+      })
+    : [];
+
 
   const totalPages = Math.ceil(filteredTransactions.length / pageSize);
   const startIndex = (currentPage - 1) * pageSize;
@@ -85,7 +90,7 @@ export function TransactionsTable({
     try {
       await transactionsApi.delete(transactionId);
       
-      const updatedTransactions = transactions.filter(t => t._id !== transactionId);
+      const updatedTransactions = transactions?.filter(t => t._id !== transactionId) || [];
       onDeleteTransactions(updatedTransactions);
       
       toast({

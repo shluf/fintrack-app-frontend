@@ -18,20 +18,20 @@ export function TransactionsFilters({
 }: TransactionsFiltersProps) {
   return (
     <div className="flex justify-between px-4 py-8 border rounded-lg">
-      <div className="flex gap-4 items-center">
+      <div className="flex sm:flex-row flex-col w-full gap-4 items-center">
         <div className="relative">
           <Input
             placeholder="Search transactions..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className=" border-slate-700 text-slate-100 w-64 focus:ring-emerald-500 focus:border-emerald-500 pl-10"
+            className=" border-slate-700 sm:w-64 w-full focus:ring-emerald-500 focus:border-emerald-500 pl-10"
           />
           <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
         </div>
         <Select value={typeFilter} onValueChange={setTypeFilter}>
-          <SelectTrigger className=" border-slate-700 w-[180px]">
+          <SelectTrigger className="relative border-slate-700 w-[180px]">
             <SelectValue placeholder="Filter by type" />
-            <Filter className="h-4 w-4 ml-2 text-slate-500" />
+            <Filter className="h-4 w-4 ml-2 absolute right-10 text-slate-500" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Types</SelectItem>

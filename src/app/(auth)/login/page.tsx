@@ -32,8 +32,8 @@ export default function LoginPage() {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const response = await authApi.login(data.email, data.password);
-      const token = response.data.token;
-      authApi.setAuthToken(token);
+      const {token, user } = response.data;
+      authApi.setUserInfo(user, token);
       router.push("/dashboard");
     } catch (error) {
       console.error(error)

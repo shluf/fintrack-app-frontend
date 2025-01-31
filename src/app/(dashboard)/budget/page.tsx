@@ -149,10 +149,11 @@ export default function BudgetPage() {
         />
       </>
     ) : (
-      <div className="text-center py-8 border border-dashed border-slate-800 rounded-lg">
+      <div onClick={() => setIsDialogOpen(!false)} className="cursor-pointer text-center py-8 border border-dashed border-slate-800 rounded-lg">
         <div className="flex flex-col items-center gap-3 text-slate-500">
           <Wallet className="h-8 w-8" />
           <p>No budget configured for this month</p>
+          <p className="text-xs">click here to set budget for this month</p>
         </div>
       </div>
     )}

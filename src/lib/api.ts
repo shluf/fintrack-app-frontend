@@ -30,8 +30,17 @@ export const authApi = {
   register: async (name: string, email: string, password: string) => {
     return api.post('/register', { name, email, password });
   },
-  setAuthToken: (token: string) => {
+  setUserInfo: (user: User, token: string) => {
     document.cookie = `token=${token}; Path=/; Secure; Max-Age=${24 * 60 * 60}; SameSite=Strict;`;
+    localStorage.setItem('user', JSON.stringify(user));
+  },
+  getUserInfo: (): User | null => {
+    const userJson = localStorage.getItem('user');
+    return userJson ? JSON.parse(userJson) : null;
+  },
+  clearUserInfo: () => {
+    localStorage.removeItem('user');
+    document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   }
 };
 
@@ -86,18 +95,23 @@ export const reportsApi = {
 
 // Types
 export interface Transaction {
-    _id: string;
-    user_id: string;
-    amount: number;
-    type: 'income' | 'expense';
-    date: string;
-    description: string;
-    category?: string;
-  }
-  
+  _id: string;
+  user_id: string;
+  amount: number;
+  type: "income" | "expense";
+  date: string;
+  description: string;
+  category?: string;
+}
+
 export interface Budget {
-    _id: string;
-    user_id: string;
-    monthly_limit: number;
-    month: string;
-  }
+  _id: string;
+  user_id: string;
+  monthly_limit: number;
+  month: string;
+}
+
+export interface User {
+  name: string;
+  email: string;
+}

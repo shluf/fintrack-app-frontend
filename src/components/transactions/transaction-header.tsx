@@ -25,8 +25,10 @@ export function TransactionsHeader({ isDialogOpen, setIsDialogOpen, onUpdateTran
   <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
     <DialogTrigger asChild>
       <Button className="bg-emerald-500 hover:from-emerald-600 text-white shadow-lg shadow-emerald-500/20">
-        <Plus className="mr-2 h-4 w-4" />
-        Add Transaction
+        <Plus className="sm:mr-2 sm:ml-0 mx-4  h-4 w-4" />
+          <span className="sm:block hidden">
+            Add Transaction
+          </span>
       </Button>
     </DialogTrigger>
     <DialogContent className="bg-slate-800 border-slate-700">

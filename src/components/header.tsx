@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { authApi } from '@/lib/api';
 import { LogOut } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -9,7 +10,7 @@ export function Header() {
   const router = useRouter();
 
   const handleLogout = () => {
-    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    authApi.clearUserInfo();
     router.push('/login');
   };
 
