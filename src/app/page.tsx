@@ -5,11 +5,34 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, BadgeCheck, BarChart, Clock, Shield } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { useEffect, useRef, useState } from "react"
 
 export default function LandingPage() {
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+    useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollY.current || currentScrollY === 0) {
+        setIsVisible(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  
   return (
-    <div className="bg-gradient-to-b from-[#0F172A] to-[#1E293B] text-white min-h-screen">
-      <nav className="fixed w-full bg-[#0F172A]/90 backdrop-blur-md z-50">
+    <div className="bg-gradient-to-b scroll-smooth from-[#0F172A] to-[#1E293B] text-white min-h-screen">
+      <nav className={`fixed w-full bg-[#0F172A]/90 backdrop-blur-md z-50 transform transition-transform duration-300 ${
+        isVisible ? 'translate-y-0' : '-translate-y-full'
+      }`}>
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-2">
             <a href="https://www.freepnglogos.com/images/f-letter-logo-png-1555.html">
@@ -83,11 +106,18 @@ export default function LandingPage() {
             <div className="relative w-full max-w-lg">
               <div className="absolute inset-0 bg-emerald-500/20 blur-3xl rounded-full" />
               <Image
-                src={"/assets/preview.png"}
+                src={"/assets/preview-desktop.png"}
                 alt="Dashboard Preview"
                 width={700}
                 height={400}
-                className="relative z-10 rounded-2xl shadow-2xl"
+                className="relative z-10 rounded-2xl border-4 border-emerald-400 shadow-2xl"
+              />
+              <Image
+                src={"/assets/preview-mobile.png"}
+                alt="Dashboard Preview"
+                width={130}
+                height={400}
+                className="absolute -bottom-6 -right-6 rotate-6  skew-y-2 -skew-x-6 z-10 rounded-xl border-4 border-emerald-400 shadow-2xl"
               />
             </div>
           </div>
