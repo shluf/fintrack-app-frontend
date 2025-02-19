@@ -33,8 +33,9 @@ export default function LoginPage() {
     try {
       const response = await authApi.login(data.email, data.password);
       const {token, user } = response.data;
-      await authApi.setUserInfo(user, token);
-      router.push("/dashboard");
+      authApi.setUserInfo(user, token);
+      console.log("otw dashboard")
+      router.replace("/dashboard");
     } catch (error) {
       console.error(error)
       toast({
