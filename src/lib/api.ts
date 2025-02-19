@@ -30,7 +30,7 @@ export const authApi = {
   register: async (name: string, email: string, password: string) => {
     return api.post('/register', { name, email, password });
   },
-  setUserInfo: (user: User, token: string) => {
+  setUserInfo: async (user: User, token: string) => {
     document.cookie = `token=${token}; Path=/; Secure; Max-Age=${24 * 60 * 60}; SameSite=Strict;`;
     localStorage.setItem('user', JSON.stringify(user));
   },

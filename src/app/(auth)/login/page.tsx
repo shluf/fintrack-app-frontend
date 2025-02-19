@@ -33,7 +33,7 @@ export default function LoginPage() {
     try {
       const response = await authApi.login(data.email, data.password);
       const {token, user } = response.data;
-      authApi.setUserInfo(user, token);
+      await authApi.setUserInfo(user, token);
       router.push("/dashboard");
     } catch (error) {
       console.error(error)
